@@ -28,7 +28,7 @@ module.exports = function(grunt) {
     };
     grunt.registerMultiTask('cacheBust', 'Bust static assets from the cache using content hashing', function() {
         var opts = this.options(DEFAULT_OPTIONS);
-        if( opts.baseDir.substr(-1) !== '/' ) {
+        if( opts.baseDir.substring(-1) !== '/' ) {
             opts.baseDir += '/';
         }
 
@@ -75,7 +75,8 @@ module.exports = function(grunt) {
             ['=', '>'],
             ['=', ' '],
             ['"', ' '],
-            [' ', ' ']
+            [' ', ' '],
+            [' ', '?']
         ];
 
         // add urlPrefixes to enclosing scenarios
@@ -88,6 +89,7 @@ module.exports = function(grunt) {
                 replaceEnclosedBy.push([urlPrefix, " "]);
             });
         }
+
         // don't replace references that are already cache busted
         if (!isUsingQueryString(opts)) {
             replaceEnclosedBy = replaceEnclosedBy.concat(replaceEnclosedBy.map(function(reb) {
@@ -104,15 +106,14 @@ module.exports = function(grunt) {
         function replaceInFile(filepath) {
             var markup = grunt.file.read(filepath);
             var baseDir = discoveryOpts.cwd + '/';
-            var relativeFileDir = path.dirname(filepath).substr(baseDir.length);
+            var relativeFileDir = path.dirname(filepath).substring(baseDir.length);
             var fileDepth = 0;
 
             if (relativeFileDir !== '') {
                 fileDepth = relativeFileDir.split('/').length;
             }
 
-            var baseDirs = filepath.substr(baseDir.length).split('/');
-
+            var baseDirs = filepath.substring(baseDir.length).split('/');
             _.each(assetMap, function(hashed, original) {
                 var replace = [
                     // abs path
@@ -120,6 +121,7 @@ module.exports = function(grunt) {
                     // relative
                     [grunt.util.repeat(fileDepth, '../') + original, grunt.util.repeat(fileDepth, '../') + hashed],
                 ];
+
                 // find relative paths for shared dirs
                 var originalDirParts = path.dirname(original).split('/');
                 for (var i = 1; i <= fileDepth; i++) {
@@ -129,7 +131,7 @@ module.exports = function(grunt) {
                         var originalFilename = path.basename(original);
                         var hashedFilename = path.basename(hashed);
                         var dir = grunt.util.repeat(fileDepth - 1, '../') + originalDirParts.slice(i).join('/');
-                        if (dir.substr(-1) !== '/') {
+                        if (dir.substring(-1) !== '/') {
                             dir += '/';
                         }
                         replace.push([dir + originalFilename, dir + hashedFilename]);
@@ -139,11 +141,16 @@ module.exports = function(grunt) {
                     var original = r[0];
                     var hashed = r[1];
                     _.each(replaceEnclosedBy, function(reb) {
-                        markup = markup.split(reb[0] + original + reb[1]).join(reb[0] + hashed + reb[1]);
+                        if (!opts.queryString) {
+                            markup = markup.replace("." + /[a-fA-F0-9]{16}/gm + ".", "")
+                        } else {
+                            markup = markup.replace("?" + /[a-fA-F0-9]{16}/gm, "")
+                        }
+                        markup = markup.split(reb[0] + original + reb[1])
+                        markup = markup.join(reb[0] + hashed + reb[1]);
                     });
                 });
             });
-
             grunt.file.write(filepath, markup);
         }
 
@@ -186,6 +193,7 @@ module.exports = function(grunt) {
         }
 
         function getFilesToBeRenamed(files, assetMap, baseDir) {
+            // Files contains a list of template files. 
             var originalConfig = files[0].orig;
             // check if fully specified filenames have been busted and replace with busted file
             var baseDirResolved = path.resolve(baseDir) + '/';
@@ -193,17 +201,17 @@ module.exports = function(grunt) {
             originalConfig.src = originalConfig.src.map(function(file) {
                 if( assetMap ) {
                     var files = [file];
-                    if(path.resolve(cwd + file).substr(0, baseDirResolved.length) === baseDirResolved) {
-                        files.push(path.resolve(cwd + file).substr(baseDirResolved.length));
+                    if(path.resolve(cwd + file).substring(0, baseDirResolved.length) === baseDirResolved) {
+                        files.push(path.resolve(cwd + file).substring(baseDirResolved.length));
                     }
                     var result;
                     files.forEach(function(file2) {
                         var fileResolved = path.resolve(baseDirResolved + file2);
-                        if (!result && fileResolved.substr(0, baseDirResolved.length) === baseDirResolved && (fileResolved.substr(baseDirResolved.length)) in assetMap) {
-                            result = assetMap[fileResolved.substr(baseDirResolved.length)];
+                        if (!result && fileResolved.substring(0, baseDirResolved.length) === baseDirResolved && (fileResolved.substring(baseDirResolved.length)) in assetMap) {
+                            result = assetMap[fileResolved.substring(baseDirResolved.length)];
                             // if original file had baseDir at the start, make sure it's there now
                             var baseDirNormalized = path.normalize(baseDir);
-                            if(path.normalize(file).substr(0, baseDirNormalized.length) === baseDirNormalized) {
+                            if(path.normalize(file).substring(0, baseDirNormalized.length) === baseDirNormalized) {
                                 result = baseDir + result;
                             }
                         }
