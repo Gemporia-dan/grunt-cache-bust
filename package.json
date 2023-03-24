@@ -1,12 +1,12 @@
 {
-  "name": "grunt-cache-bust",
-  "description": "Bust static assets from the cache using content hashing",
-  "version": "1.7.0",
-  "author": "Ben Holland <hi@benholland.me>",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/hollandben/grunt-cache-bust.git"
-  },
+  "name": "grunt-cachebusters",
+  "description": "Who you gunna call?",
+  "version": "1.0.0",
+  "author": "Gemporia <frontend@gemporia.com>",
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/Gemporia-dan/grunt-cache-bust"
+    },
   "licenses": [
     {
       "type": "MIT",
