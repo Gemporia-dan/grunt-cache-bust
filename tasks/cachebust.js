@@ -142,9 +142,9 @@ module.exports = function(grunt) {
                     var hashed = r[1];
                     _.each(replaceEnclosedBy, function(reb) {
                         if (!opts.queryString) {
-                            markup = markup.replace("." + /[a-fA-F0-9]{16}/gm + ".", "")
+                            markup = markup.replace("." + /[a-fA-F0-9]{opts.length}/gm + ".", "")
                         } else {
-                            markup = markup.replace("?" + /[a-fA-F0-9]{16}/gm, "")
+                            markup = markup.replace("?" + /[a-fA-F0-9]{opts.length}/gm, "")
                         }
                         markup = markup.split(reb[0] + original + reb[1])
                         markup = markup.join(reb[0] + hashed + reb[1]);
