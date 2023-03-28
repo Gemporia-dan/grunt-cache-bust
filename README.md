@@ -1,9 +1,4 @@
-# grunt-cache-bust
-
-[![npm version](https://badge.fury.io/js/grunt-cache-bust.svg)](http://badge.fury.io/js/grunt-cache-bust)
-[![Build Status](https://travis-ci.org/hollandben/grunt-cache-bust.png?branch=master)](https://travis-ci.org/hollandben/grunt-cache-bust)
-[![Dependency Status](https://david-dm.org/hollandben/grunt-cache-bust.svg)](https://david-dm.org/hollandben/grunt-cache-bust)
-[![Join the chat at https://gitter.im/hollandben/grunt-cache-bust](https://badges.gitter.im/hollandben/grunt-cache-bust.svg)](https://gitter.im/hollandben/grunt-cache-bust?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+# grunt-cachebusters
 
 > Bust static assets from the cache using content hashing
 
@@ -16,7 +11,7 @@
 * [Change Log](#change-log)
 
 ## PLEASE READ
-This plugin recently upgraded to `v1.0.0`!! There was a big change in the way the plugin works. You can read me about the changes in issue [#147](https://github.com/hollandben/grunt-cache-bust/issues/147).
+This is a forked version of https://github.com/hollandben/grunt-cache-bust/ we found this project useful and as it's no longer maintained we've updated to meet out needs. 
 
 ## Getting Started
 _If you haven't used [grunt][] before, be sure to check out the [Getting Started][] guide._
@@ -24,13 +19,13 @@ _If you haven't used [grunt][] before, be sure to check out the [Getting Started
 From the same directory as your project's [Gruntfile][Getting Started] and [package.json][], install this plugin with the following command:
 
 ```bash
-npm install grunt-cache-bust --save-dev
+npm i grunt-cachebusters -D
 ```
 
 Once the plugin has been installed, enabled it inside your Gruntfile.
 
 ```bash
-grunt.loadNpmTasks('grunt-cache-bust');
+grunt.loadNpmTasks('grunt-cachebusters');
 ```
 
 [grunt]: http://gruntjs.com/
