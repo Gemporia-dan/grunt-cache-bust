@@ -16,7 +16,7 @@
 * [Change Log](#change-log)
 
 ## PLEASE READ
-This is a forked version of https://github.com/hollandben/grunt-cache-bust/ we found this project useful and as it's not longer maintained we've update to meet out needs. 
+This is a forked version of https://github.com/hollandben/grunt-cache-bust/ we found this project useful and as it's no longer maintained we've updated to meet out needs. 
 
 ## Getting Started
 _If you haven't used [grunt][] before, be sure to check out the [Getting Started][] guide._
