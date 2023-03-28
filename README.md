@@ -16,7 +16,7 @@
 * [Change Log](#change-log)
 
 ## PLEASE READ
-This plugin recently upgraded to `v1.0.0`!! There was a big change in the way the plugin works. You can read me about the changes in issue [#147](https://github.com/hollandben/grunt-cache-bust/issues/147).
+This is a forked version of https://github.com/hollandben/grunt-cache-bust/ we found this project useful and as it's not longer maintained we've update to meet out needs. 
 
 ## Getting Started
 _If you haven't used [grunt][] before, be sure to check out the [Getting Started][] guide._
@@ -24,7 +24,7 @@ _If you haven't used [grunt][] before, be sure to check out the [Getting Started
 From the same directory as your project's [Gruntfile][Getting Started] and [package.json][], install this plugin with the following command:
 
 ```bash
-npm install grunt-cache-bust --save-dev
+npm i grunt-cachebusters --save-dev
 ```
 
 Once the plugin has been installed, enabled it inside your Gruntfile.
